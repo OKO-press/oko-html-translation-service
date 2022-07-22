@@ -17,13 +17,19 @@ router.get("/", (ctx, next) => {
  * Simple HTML to DraftJS
  */
 router.post("/translate/simple", async (ctx, next) => {
-  console.log(ctx.request.body?.text);
+  const { text } = ctx.request.body;
 
-  const converted = convertFromHTML(ctx.request.body?.text);
+  if (!text) {
+    ctx.throw('Not enough params', 400);
+  }
+
+  const converted = convertFromHTML(text);
 
   ctx.body = {
     text: JSON.stringify(converted),
   };
+
+  await next();
 });
 
 app.use(bodyParser()).use(router.routes()).use(router.allowedMethods());
