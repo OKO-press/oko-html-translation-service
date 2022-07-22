@@ -19,7 +19,7 @@ router.get("/", (ctx, next) => {
 router.post("/translate/simple", async (ctx, next) => {
   const { text } = ctx.request.body;
 
-  if (!text) {
+  if (typeof text === "undefined") {
     ctx.throw('Not enough params', 400);
   }
 
