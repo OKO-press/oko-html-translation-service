@@ -7,7 +7,7 @@ const app = new Koa();
 const router = new Router();
 
 router.get('/', (ctx, next) => {
-  ctx.body = 'OKO HTML → DraftJS translation at your service 🦾';
+  ctx.body = `OKO HTML → DraftJS translation at your service 🦾`;
 })
 
 app
