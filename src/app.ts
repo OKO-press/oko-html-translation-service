@@ -22,7 +22,7 @@ router.post("/translate/simple", async (ctx, next) => {
   const converted = convertFromHTML(ctx.request.body?.text);
 
   ctx.body = {
-    hello: converted,
+    text: JSON.stringify(converted),
   };
 });
 
