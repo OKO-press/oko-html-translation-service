@@ -1,6 +1,8 @@
 import Koa from "koa";
 import Router from "@koa/router";
 import bodyParser from "koa-bodyparser";
+import "global-jsdom/register";
+import { convertFromHTML } from "draft-js";
 
 const PORT = 6660;
 
@@ -16,8 +18,11 @@ router.get("/", (ctx, next) => {
  */
 router.post("/translate/simple", async (ctx, next) => {
   console.log(ctx.request.body?.text);
+
+  const converted = convertFromHTML(ctx.request.body?.text);
+
   ctx.body = {
-    hello: ctx.request.body?.text
+    hello: converted,
   };
 });
 
