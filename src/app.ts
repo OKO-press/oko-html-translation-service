@@ -2,7 +2,7 @@ import Koa from "koa";
 import Router from "@koa/router";
 import bodyParser from "koa-bodyparser";
 import "global-jsdom/register";
-import { convertFromHTML } from "draft-js";
+import { convertFromHTML, ContentState, convertToRaw } from "draft-js";
 
 const PORT = 6660;
 
@@ -25,8 +25,13 @@ router.post("/translate/simple", async (ctx, next) => {
 
   const converted = convertFromHTML(text);
 
+  const draftState = ContentState.createFromBlockArray(
+    converted.contentBlocks,
+    converted.entityMap,
+  );
+
   ctx.body = {
-    text: JSON.stringify(converted),
+    text: JSON.stringify(convertToRaw(draftState)),
   };
 
   await next();
