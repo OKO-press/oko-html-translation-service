@@ -32,6 +32,17 @@ router.post("/translate/simple", async (ctx, next) => {
   await next();
 });
 
+/**
+ * Ping tgo check if service is alive.
+ */
+router.get("/ping", async (ctx, next) => {
+  ctx.body = {
+    status: true
+  }
+
+  await next();
+});
+
 app.use(bodyParser()).use(router.routes()).use(router.allowedMethods());
 
 app.listen(6660);
