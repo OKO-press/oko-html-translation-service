@@ -2,8 +2,8 @@ import Koa from "koa";
 import Router from "@koa/router";
 import bodyParser from "koa-bodyparser";
 import "global-jsdom/register";
-import { convertFromHTML, ContentState, convertToRaw } from "draft-js";
 import simpleHandler from "./simple-handler";
+import advancedHandler from "./advanced-handler";
 
 const PORT = 6660;
 
@@ -15,9 +15,14 @@ router.get("/", (ctx, next) => {
 });
 
 /**
- * Simple HTML to DraftJS
+ * HTML to simple DraftJS
  */
 router.post("/translate/simple", simpleHandler);
+
+/**
+ * HTML to advanced DraftJS
+ */
+ router.post("/translate/advanced", advancedHandler);
 
 /**
  * Ping tgo check if service is alive.

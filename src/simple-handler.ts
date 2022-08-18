@@ -1,11 +1,7 @@
 import { convertFromHTML, ContentState, convertToRaw } from "draft-js";
-import type * as Koa from "koa";
-import type Router from "@koa/router";
+import { Ctx, Next } from "./types";
 
-type Ctx = Koa.ParameterizedContext<Koa.DefaultState, Koa.DefaultContext
-& Router.RouterParamContext<Koa.DefaultState, Koa.DefaultContext>, any>;
-
-export default async function(ctx: Ctx, next: Koa.Next) {
+export default async function(ctx: Ctx, next: Next) {
   const { text } = ctx.request.body;
 
   if (typeof text === "undefined") {
