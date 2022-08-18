@@ -3,6 +3,7 @@ import Router from "@koa/router";
 import bodyParser from "koa-bodyparser";
 import "global-jsdom/register";
 import { convertFromHTML, ContentState, convertToRaw } from "draft-js";
+import simpleHandler from "./simple-handler";
 
 const PORT = 6660;
 
@@ -16,26 +17,7 @@ router.get("/", (ctx, next) => {
 /**
  * Simple HTML to DraftJS
  */
-router.post("/translate/simple", async (ctx, next) => {
-  const { text } = ctx.request.body;
-
-  if (typeof text === "undefined") {
-    ctx.throw('Not enough params', 400);
-  }
-
-  const converted = convertFromHTML(text);
-
-  const draftState = ContentState.createFromBlockArray(
-    converted.contentBlocks,
-    converted.entityMap,
-  );
-
-  ctx.body = {
-    text: JSON.stringify(convertToRaw(draftState)),
-  };
-
-  await next();
-});
+router.post("/translate/simple", simpleHandler);
 
 /**
  * Ping tgo check if service is alive.
