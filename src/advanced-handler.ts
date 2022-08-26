@@ -1,5 +1,15 @@
-import { convertFromHTML, ContentState, convertToRaw } from "draft-js";
+import { convertFromHTML, ContentState, convertToRaw, DefaultDraftBlockRenderMap } from "draft-js";
+import Immutable from "immutable";
 import { Ctx, Next } from "./types";
+
+// Custom render map
+const blockRenderMap = Immutable.Map({
+  atomic: {
+    element: "widget",
+  },
+});
+
+const extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap);
 
 export default async function(ctx: Ctx, next: Next) {
   const { text } = ctx.request.body;
@@ -8,7 +18,7 @@ export default async function(ctx: Ctx, next: Next) {
     ctx.throw('Not enough params', 400);
   }
 
-  const converted = convertFromHTML(text);
+  const converted = convertFromHTML(text, undefined, extendedBlockRenderMap);
 
   const draftState = ContentState.createFromBlockArray(
     converted.contentBlocks,
