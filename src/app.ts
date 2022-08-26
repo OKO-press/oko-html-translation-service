@@ -4,6 +4,7 @@ import bodyParser from "koa-bodyparser";
 import "global-jsdom/register";
 import simpleHandler from "./simple-handler";
 import advancedHandler from "./advanced-handler";
+import cors from "@koa/cors";
 
 const PORT = 6660;
 
@@ -35,7 +36,7 @@ router.get("/ping", async (ctx, next) => {
   await next();
 });
 
-app.use(bodyParser()).use(router.routes()).use(router.allowedMethods());
+app.use(bodyParser()).use(router.routes()).use(router.allowedMethods()).use(cors());
 
 app.listen(6660);
 console.log(`Listening on ${PORT}`);
