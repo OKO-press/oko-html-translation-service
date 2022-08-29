@@ -26,7 +26,6 @@ export default async function(ctx: Ctx, next: Next) {
     switch (nodeName) {
       case "widget":
         return widgetConverter(node);
-        break;
       default:
         return false;
     }
