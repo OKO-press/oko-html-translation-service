@@ -1,6 +1,7 @@
 import { convertFromHTML, ContentState, convertToRaw, DefaultDraftBlockRenderMap } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import Immutable from "immutable";
+import { widgetConverter } from "./converters";
 import { Ctx, Next } from "./types";
 
 // Custom render map
@@ -21,21 +22,14 @@ export default async function(ctx: Ctx, next: Next) {
 
   // @ts-ignore
   const converted = htmlToDraft(text, (nodeName, node) => {
-    if (nodeName === 'widget') {
-      const attrs = new Map();
 
-      for (const attr of node.attributes) {
-        attrs.set(attr.name, attr.value)
-      }
-
-      return {
-        type: 'atomic',
-        mutability: 'MUTABLE',
-        data: Object.fromEntries(attrs.entries())
-      };
+    switch (nodeName) {
+      case "widget":
+        return widgetConverter(node);
+        break;
+      default:
+        return false;
     }
-
-    return false;
   });
 
   const draftState = ContentState.createFromBlockArray(
