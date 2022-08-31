@@ -1,10 +1,16 @@
+interface Data {
+  [name: string]: string
+}
+
 interface entityMap {
   type: string
   mutability: "MUTABLE" | "IMMUTABLE"
-  data: Object
+  data: Data
 }
 
-export const widgetConverter = (node: HTMLElement): entityMap => {
+type Converter = (node: HTMLElement) => entityMap;
+
+export const widgetConverter: Converter = (node) => {
   const attrs = new Map();
 
   for (const attr of node.attributes) {

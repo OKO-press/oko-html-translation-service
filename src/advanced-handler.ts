@@ -1,7 +1,8 @@
-import { convertFromHTML, ContentState, convertToRaw, DefaultDraftBlockRenderMap } from "draft-js";
+import { ContentState, convertToRaw, DefaultDraftBlockRenderMap } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import Immutable from "immutable";
 import { widgetConverter } from "./converters";
+import { entityFixer } from "./entityFixer";
 import { Ctx, Next } from "./types";
 
 // Custom render map
@@ -22,7 +23,6 @@ export default async function(ctx: Ctx, next: Next) {
 
   // @ts-ignore
   const converted = htmlToDraft(text, (nodeName, node) => {
-
     switch (nodeName) {
       case "widget":
         return widgetConverter(node);
@@ -37,7 +37,7 @@ export default async function(ctx: Ctx, next: Next) {
   );
 
   ctx.body = {
-    text: JSON.stringify(convertToRaw(draftState)),
+    text: JSON.stringify(entityFixer(convertToRaw(draftState))),
   };
 
   await next();
