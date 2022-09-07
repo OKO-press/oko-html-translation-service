@@ -2,9 +2,11 @@ interface Data {
   [name: string]: string
 }
 
+type Mutability = "MUTABLE" | "IMMUTABLE";
+
 interface entityMap {
   type: string
-  mutability: "MUTABLE" | "IMMUTABLE"
+  mutability: Mutability
   data: Data
 }
 
@@ -17,9 +19,14 @@ export const widgetConverter: Converter = (node) => {
     attrs.set(attr.name, attr.value)
   }
 
+  const { type, data } = node.dataset;
+  const mutability = node.dataset.mutability as Mutability;
+
   return {
-    type: 'atomic',
-    mutability: 'MUTABLE',
-    data: Object.fromEntries(attrs.entries())
+    type,
+    mutability,
+    data: {
+      data: JSON.parse(data)
+    }
   };
 }
