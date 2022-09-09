@@ -4,6 +4,7 @@ import bodyParser from "koa-bodyparser";
 import "global-jsdom/register";
 import simpleHandler from "./simple-handler";
 import advancedHandler from "./advanced-handler";
+import diagramHandler from "./diagram-handler";
 import cors from "@koa/cors";
 
 const PORT = 6660;
@@ -23,7 +24,12 @@ router.post("/translate/simple", simpleHandler);
 /**
  * HTML to advanced DraftJS
  */
- router.post("/translate/advanced", advancedHandler);
+router.post("/translate/advanced", advancedHandler);
+
+/**
+ * Handle diagram screenshots
+ */
+router.post("/translate/diagram", diagramHandler);
 
 /**
  * Ping tgo check if service is alive.
