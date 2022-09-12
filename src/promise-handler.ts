@@ -15,9 +15,9 @@ export default async function (ctx: Ctx, next: Next) {
 
   const page = await createPage({url});
   await page.addStyleTag({ content: css });
-  await page.waitForSelector(".entry-content");
+  await page.waitForSelector(".layout-block");
 
-  const element = await page.$(".entry-content");
+  const element = await page.$(".layout-block");
   await element.screenshot({
     path: path.join(__dirname, "..", "storage", `${filename}.png`),
   });

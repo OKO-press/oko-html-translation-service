@@ -5,6 +5,7 @@ import "global-jsdom/register";
 import simpleHandler from "./simple-handler";
 import advancedHandler from "./advanced-handler";
 import diagramHandler from "./diagram-handler";
+import promiseHandler from "./promise-handler";
 import cors from "@koa/cors";
 
 const PORT = 6660;
@@ -30,6 +31,11 @@ router.post("/translate/advanced", advancedHandler);
  * Handle diagram screenshots
  */
 router.post("/translate/diagram", diagramHandler);
+
+/**
+ * Handle promise screenshots
+ */
+ router.post("/translate/promise", promiseHandler);
 
 /**
  * Ping tgo check if service is alive.
