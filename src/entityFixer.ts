@@ -28,8 +28,8 @@ const fixLink = (data: Data): Data => {
   const slug = getInternalLinkSlug(url);
 
   if (typeof slug == "string") {
-    newData.type = "INTERNAL";
-    newData.href = slug;
+    newData.type = "LEGACY_INTERNAL";
+    newData.slug = slug;
     newData.target = "_blank";
   } else {
     newData.type = "EXTERNAL";
