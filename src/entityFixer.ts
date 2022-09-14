@@ -30,12 +30,9 @@ const fixLink = (data: Data): Data => {
   if (typeof slug == "string") {
     newData.type = "LEGACY_INTERNAL";
     newData.slug = slug;
-    newData.target = "_blank";
   } else {
     newData.type = "EXTERNAL";
-    newData.href = url;
-    newData.target = "_blank";
-    newData.rel = "nofollow";
+    newData.url = url;
   }
 
   return newData;
