@@ -25,8 +25,6 @@ export const widgetConverter: Converter = (node) => {
   return {
     type,
     mutability,
-    data: {
-      data: JSON.parse(data)
-    }
+    data: JSON.parse(data)
   };
 }
