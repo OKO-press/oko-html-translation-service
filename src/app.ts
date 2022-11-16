@@ -6,7 +6,7 @@ import simpleHandler from "./simple-handler";
 import advancedHandler from "./advanced-handler";
 import cors from "@koa/cors";
 
-const PORT = 6660;
+const PORT = 80;
 
 const app = new Koa();
 const router = new Router();
@@ -42,5 +42,5 @@ app
   .use(router.allowedMethods())
   .use(cors());
 
-app.listen(6660);
+app.listen(PORT);
 console.log(`Listening on ${PORT}`);
