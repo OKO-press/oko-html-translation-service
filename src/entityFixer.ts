@@ -1,33 +1,34 @@
-import { getInternalLinkSlug } from "./helpers";
-import type  { RawDraftContentState } from "draft-js";
+import { getInternalLinkSlug, hasFileExtension } from "./helpers";
+import type { RawDraftContentState } from "draft-js";
 
 interface Data {
-  [name: string]: string
+  [name: string]: string;
 }
 
-export const entityFixer = (json: RawDraftContentState):  RawDraftContentState => {
-  const {entityMap} = json;
+export const entityFixer = (
+  json: RawDraftContentState
+): RawDraftContentState => {
+  const { entityMap } = json;
 
-  Object.keys(entityMap).forEach(function(key, index) {
-    const {type} = entityMap[key];
+  Object.keys(entityMap).forEach(function (key, index) {
+    const { type } = entityMap[key];
 
-    switch(type) {
+    switch (type) {
       case "LINK":
         entityMap[key].data = fixLink(entityMap[key].data);
     }
   });
 
   return json;
-}
-
+};
 
 const fixLink = (data: Data): Data => {
-  const {url} = data;
+  const { url } = data;
   const newData = {} as Data;
 
   const slug = getInternalLinkSlug(url);
 
-  if (typeof slug == "string") {
+  if (typeof slug == "string" && !hasFileExtension(url)) {
     newData.type = "LEGACY_INTERNAL";
     newData.slug = slug;
   } else {
@@ -36,4 +37,4 @@ const fixLink = (data: Data): Data => {
   }
 
   return newData;
-}
+};
