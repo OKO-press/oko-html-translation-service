@@ -8,5 +8,5 @@ export const getInternalLinkSlug = (href: string): boolean | string => {
 export const hasFileExtension = (href: string) =>
   !!href.match(/\.(\w{3,4})$/iu);
 
-export const isProperTranslateBody = (body: any): body is { text: string } =>
+export const isProperTranslateBody = (body: any): body is TranslationRequest =>
   "text" in body;
