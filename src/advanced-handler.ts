@@ -4,6 +4,7 @@ import Immutable from "immutable";
 import { widgetConverter } from "./converters";
 import { entityFixer } from "./entityFixer";
 import { Ctx, Next } from "./types";
+import { isProperTranslateBody } from "./helpers";
 
 // Custom render map
 const blockRenderMap = Immutable.Map({
@@ -12,17 +13,17 @@ const blockRenderMap = Immutable.Map({
   },
 });
 
-const extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap);
+DefaultDraftBlockRenderMap.merge(blockRenderMap);
 
 export default async function(ctx: Ctx, next: Next) {
-  const { text } = ctx.request.body;
+  const { body } = ctx.request;
 
-  if (typeof text === "undefined") {
-    ctx.throw('Not enough params', 400);
+  if (!isProperTranslateBody(body)) {
+    ctx.throw(400, "Not enough params");
   }
 
   // @ts-ignore
-  const converted = htmlToDraft(text, (nodeName, node) => {
+  const converted = htmlToDraft(body.text, (nodeName, node) => {
     switch (nodeName) {
       case "widget":
         return widgetConverter(node);
