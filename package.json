@@ -34,14 +34,14 @@
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "global-jsdom": "8.5.0",
+    "jsdom": "20.0.0"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.7",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
-    "global-jsdom": "8.5.0",
-    "jsdom": "20.0.0",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"

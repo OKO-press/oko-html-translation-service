@@ -6,7 +6,7 @@ import simpleHandler from "./simple-handler";
 import advancedHandler from "./advanced-handler";
 import cors from "@koa/cors";
 
-const PORT = 6660;
+const PORT = process.env.port || 3000;
 
 const app = new Koa();
 const router = new Router();
