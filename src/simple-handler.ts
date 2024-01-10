@@ -1,18 +1,19 @@
 import { convertFromHTML, ContentState, convertToRaw } from "draft-js";
 import { Ctx, Next } from "./types";
+import { isProperTranslateBody } from "./helpers";
 
-export default async function(ctx: Ctx, next: Next) {
-  const { text } = ctx.request.body;
+export default async function (ctx: Ctx, next: Next) {
+  const { body } = ctx.request;
 
-  if (typeof text === "undefined") {
-    ctx.throw('Not enough params', 400);
+  if (!isProperTranslateBody(body)) {
+    ctx.throw(400, "Not enough params");
   }
 
-  const converted = convertFromHTML(text);
+  const converted = convertFromHTML(body.text);
 
   const draftState = ContentState.createFromBlockArray(
     converted.contentBlocks,
-    converted.entityMap,
+    converted.entityMap
   );
 
   ctx.body = {
