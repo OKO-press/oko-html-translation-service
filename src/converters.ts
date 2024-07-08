@@ -29,7 +29,7 @@ export const widgetConverter: Converter = (node) => {
   };
 }
 
-export const horizontalLineConverter: Converter = (node) => {
+export const horizontalLineConverter: Converter = () => {
   return {
     type: "HORIZONTAL_LINE",
     mutability: "IMMUTABLE",
