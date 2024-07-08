@@ -28,3 +28,11 @@ export const widgetConverter: Converter = (node) => {
     data: JSON.parse(data)
   };
 }
+
+export const horizontalLineConverter: Converter = () => {
+  return {
+    type: "HORIZONTAL_LINE",
+    mutability: "IMMUTABLE",
+    data: {}
+  }
+}

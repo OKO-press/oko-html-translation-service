@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "watch": "tsnd --respawn ./src/app.ts",
+    "watch": "export PORT=6660 && tsnd --respawn ./src/app.ts",
     "build": "rimraf dist && tsc",
     "serve": "node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
