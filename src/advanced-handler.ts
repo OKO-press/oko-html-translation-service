@@ -1,7 +1,7 @@
 import { ContentState, convertToRaw, DefaultDraftBlockRenderMap } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import Immutable from "immutable";
-import { widgetConverter } from "./converters";
+import { widgetConverter, horizontalLineConverter } from "./converters";
 import { entityFixer } from "./entityFixer";
 import { Ctx, Next } from "./types";
 import { isProperTranslateBody } from "./helpers";
@@ -27,6 +27,8 @@ export default async function(ctx: Ctx, next: Next) {
     switch (nodeName) {
       case "widget":
         return widgetConverter(node);
+      case "hr":
+        return horizontalLineConverter(node);
       default:
         return false;
     }
